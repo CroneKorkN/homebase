@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sensor: one
+  date: 2016-12-03 23:01:57
+  value: 1.5
+
+two:
+  sensor: two
+  date: 2016-12-03 23:01:57
+  value: 1.5

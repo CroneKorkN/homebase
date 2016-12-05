@@ -1,0 +1,6 @@
+h2 sensors
+
+ul
+  - @sensors.each do |sensor|
+    li
+      = link_to sensor.name, sensor

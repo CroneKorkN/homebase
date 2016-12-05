@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Sensor:
+  = @measurement.sensor
+p
+  strong Date:
+  = @measurement.date
+p
+  strong Value:
+  = @measurement.value
+
+= link_to 'Edit', edit_measurement_path(@measurement)
+'|
+= link_to 'Back', measurements_path
