@@ -24,7 +24,11 @@ class MeasurementsController < ApplicationController
   # POST /measurements
   # POST /measurements.json
   def create
-    @measurement = Measurement.new(measurement_params)
+    @sensor = Sensor.find_or_create_by identifier: measurement_params['sensor_identifier'].trim
+    @measurement = Sensor.measurements.new(
+      date: measurement_params['date'],
+      value: measurement_params['value'] || DateTime.now,
+    )
 
     respond_to do |format|
       if @measurement.save
@@ -69,6 +73,6 @@ class MeasurementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measurement_params
-      params.require(:measurement).permit(:sensor_id, :date, :value)
+      params.require(:measurement).permit(:sensor_identifier, :date, :value)
     end
 end
