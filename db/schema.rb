@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 20161203220157) do
   create_table "sensors", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
-    t.string   "type"
+    t.string   "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identifier"], name: "index_sensors_on_identifier"
-    t.index ["type"], name: "index_sensors_on_type"
+    t.index [nil], name: "index_sensors_on_type"
   end
 
 end

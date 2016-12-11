@@ -48,5 +48,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
-gem 'chartjs-ror'
-gem 'chart-js-rails'
+#gem 'chartjs-ror'
+#gem 'chart-js-rails'
+#gem 'd3-rails'
+#gem 'c3-rails'

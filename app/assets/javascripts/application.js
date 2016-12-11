@@ -12,44 +12,53 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require Chart
+// require turbolinks
+// require d3
+//= require c3
 //= require_tree .
 
-var ctx = $(".graph");
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
+// http://jsfiddle.net/54v7r0ab/7/
+
+$(function(){
+  var date = new Date ("2013-01-01");
+  var dates = ['x'];
+  var values = ['data1'];
+  i=500;
+  while (i>0) {
+    i--;
+
+    dates.push(date.setDate(date.getDate() + Math.random()));
+    values.push(200 + (Math.random() * 300));
+  }
+  var chart = c3.generate({
+      bindto: '#graph',
+      data: {
+        type: 'area-step',
+          x: 'x',
+          columns: [
+              dates,
+              values
+          ]
+      },
+      axis: {
+          x: {
+              type: 'timeseries',
+              tick: {
+                  format: '%m/%d',
+              }
+          },
+      }
+
+  });
+
+  setInterval(function () {
+      chart.flow({
+          columns: [
+              ['x', new Date (date)],
+              ['data1', 200 + (Math.random() * 300)],
+          ],
+          duration: 100,
+      });
+      date.setDate(date.getDate() + Math.random());
+  }, 2000);
 });

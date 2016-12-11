@@ -3,7 +3,7 @@ class CreateSensors < ActiveRecord::Migration[5.0]
     create_table :sensors do |t|
       t.string :identifier
       t.string :name
-      t.string :type
+      t.string :unit
 
       t.timestamps
     end
