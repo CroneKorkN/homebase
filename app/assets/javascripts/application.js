@@ -13,52 +13,31 @@
 //= require jquery
 //= require jquery_ujs
 // require turbolinks
-// require d3
-//= require c3
+//= require chartist
 //= require_tree .
 
 // http://jsfiddle.net/54v7r0ab/7/
+// https://www.taucharts.com/
 
 $(function(){
-  var date = new Date ("2013-01-01");
-  var dates = ['x'];
-  var values = ['data1'];
-  i=500;
-  while (i>0) {
-    i--;
-
-    dates.push(date.setDate(date.getDate() + Math.random()));
-    values.push(200 + (Math.random() * 300));
-  }
-  var chart = c3.generate({
-      bindto: '#graph',
-      data: {
-        type: 'area-step',
-          x: 'x',
-          columns: [
-              dates,
-              values
-          ]
-      },
-      axis: {
-          x: {
-              type: 'timeseries',
-              tick: {
-                  format: '%m/%d',
-              }
-          },
-      }
-
-  });
-
-  setInterval(function () {
-      chart.flow({
-          columns: [
-              ['x', new Date (date)],
-              ['data1', 200 + (Math.random() * 300)],
-          ],
-          duration: 100,
-      });
-      date.setDate(date.getDate() + Math.random());
-  }, 2000);
+  init_graph();
 });
+
+function init_graph() {
+  var sensor_id = $(".graph").data("sensor-id");
+  var values;
+  $.get("/sensors/" + sensor_id + "/measurements.json", function(response) {
+    var data = {
+      labels: [],
+      series: [
+        []
+      ]
+    };
+    for(i = 0; i < response.length; i++) {
+      data["labels"].push(response[i]["date"]);
+      data["series"][0].push(response[i]["value"]);
+      console.log(data);
+    }
+    var graph = new Chartist.Line('.graph', data);
+  });
+}

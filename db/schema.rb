@@ -12,14 +12,17 @@
 
 ActiveRecord::Schema.define(version: 20161203220157) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "measurements", force: :cascade do |t|
     t.integer  "sensor_id"
     t.datetime "date"
     t.float    "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_measurements_on_date"
-    t.index ["sensor_id"], name: "index_measurements_on_sensor_id"
+    t.index ["date"], name: "index_measurements_on_date", using: :btree
+    t.index ["sensor_id"], name: "index_measurements_on_sensor_id", using: :btree
   end
 
   create_table "sensors", force: :cascade do |t|
@@ -28,8 +31,9 @@ ActiveRecord::Schema.define(version: 20161203220157) do
     t.string   "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["identifier"], name: "index_sensors_on_identifier"
-    t.index [nil], name: "index_sensors_on_type"
+    t.index ["identifier"], name: "index_sensors_on_identifier", using: :btree
+    t.index ["unit"], name: "index_sensors_on_unit", using: :btree
   end
 
+  add_foreign_key "measurements", "sensors"
 end

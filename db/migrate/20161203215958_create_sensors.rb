@@ -8,6 +8,6 @@ class CreateSensors < ActiveRecord::Migration[5.0]
       t.timestamps
     end
     add_index :sensors, :identifier
-    add_index :sensors, :type
+    add_index :sensors, :unit
   end
 end

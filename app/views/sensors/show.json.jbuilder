@@ -1,1 +1,1 @@
-json.partial! "sensors/sensor", sensor: @sensor, @sensor.measurements.extract!(:date, :value)
+json.partial! "sensors/sensor", sensor: @sensor

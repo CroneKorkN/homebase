@@ -24,10 +24,11 @@ class MeasurementsController < ApplicationController
   # POST /measurements
   # POST /measurements.json
   def create
-    @sensor = Sensor.find_or_create_by identifier: measurement_params['sensor_identifier'].trim
-    @measurement = Sensor.measurements.new(
-      date: measurement_params['date'],
-      value: measurement_params['value'] || DateTime.now,
+    p params['date']
+    @sensor = Sensor.find_or_create_by identifier: params['sensor_identifier'].strip
+    @measurement = @sensor.measurements.new(
+      date: params['date'] || DateTime.now,
+      value: params['value'],
     )
 
     respond_to do |format|
