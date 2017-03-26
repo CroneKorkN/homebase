@@ -25,7 +25,7 @@ class MeasurementsController < ApplicationController
   # POST /measurements.json
   def create
     p params['date']
-    @sensor = Sensor.find_or_create_by identifier: params['sensor_identifier'].strip
+    @sensor = Sensor.find_or_create_by identifier: params['sensor_id'].strip
     @measurement = @sensor.measurements.new(
       date: params['date'] || DateTime.now,
       value: params['value'],
@@ -33,7 +33,7 @@ class MeasurementsController < ApplicationController
 
     respond_to do |format|
       if @measurement.save
-        format.html { redirect_to @measurement, notice: 'Measurement was successfully created.' }
+        format.html { render plain: "OK" }
         format.json { render :show, status: :created, location: @measurement }
       else
         format.html { render :new }
