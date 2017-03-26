@@ -20,11 +20,8 @@ default: &default
 #  username: root
 
 development:
-  adapter: postgresql
-  encoding: unicode
-  database: homebase
-  hostname: localhost
-  username: mwiegand
+  <<: *default
+  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
